@@ -3,10 +3,10 @@
 import { useState, useEffect } from 'react';
 import LoginForm from './components/LoginForm';
 import QuizContainer from './components/QuizContainer';
-import { Question } from './components/types';
+import { Question, QuizConfig } from './components/types';
 
 export default function Home() {
-  const [username, setUsername] = useState<string | null>(null);
+  const [config, setConfig] = useState<QuizConfig | null>(null);
   const [questions, setQuestions] = useState<Question[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -25,12 +25,12 @@ export default function Home() {
       });
   }, []);
 
-  const handleLogin = (name: string) => {
-    setUsername(name);
+  const handleLogin = (newConfig: QuizConfig) => {
+    setConfig(newConfig);
   };
 
   const handleBack = () => {
-    setUsername(null);
+    setConfig(null);
   };
 
   if (loading) {
@@ -61,9 +61,17 @@ export default function Home() {
     );
   }
 
-  if (!username) {
-    return <LoginForm onSubmit={handleLogin} />;
+  if (!config) {
+    return <LoginForm questions={questions} onSubmit={handleLogin} />;
   }
 
-  return <QuizContainer username={username} questions={questions} onBack={handleBack} />;
+  return (
+    <QuizContainer
+      username={config.username}
+      questions={questions}
+      numQuestions={config.numQuestions}
+      categories={config.categories}
+      onBack={handleBack}
+    />
+  );
 }

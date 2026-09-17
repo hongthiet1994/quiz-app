@@ -8,17 +8,26 @@ import QuizResultComponent from './QuizResult';
 interface QuizContainerProps {
   username: string;
   questions: Question[];
+  numQuestions: number;
+  categories: string[];
   onBack: () => void;
 }
 
-export default function QuizContainer({ username, questions, onBack }: QuizContainerProps) {
+export default function QuizContainer({
+  username,
+  questions,
+  numQuestions,
+  categories,
+  onBack,
+}: QuizContainerProps) {
   const [session, setSession] = useState<QuizSession | null>(null);
   const [result, setResult] = useState<QuizResult | null>(null);
 
   useEffect(() => {
-    // Chọn ngẫu nhiên 50 câu hỏi
-    const shuffled = [...questions].sort(() => Math.random() - 0.5);
-    const selected = shuffled.slice(0, Math.min(50, questions.length));
+    // Lọc câu hỏi theo lĩnh vực đã chọn, sau đó chọn ngẫu nhiên số câu mong muốn
+    const pool = questions.filter((q) => categories.includes(q.category));
+    const shuffled = [...pool].sort(() => Math.random() - 0.5);
+    const selected = shuffled.slice(0, Math.min(numQuestions, pool.length));
 
     const answers: { [questionId: number]: string | null } = {};
     selected.forEach((q) => {
@@ -31,7 +40,7 @@ export default function QuizContainer({ username, questions, onBack }: QuizConta
       currentIndex: 0,
       selectedQuestions: selected,
     });
-  }, [username, questions]);
+  }, [username, questions, numQuestions, categories]);
 
   if (!session) {
     return (

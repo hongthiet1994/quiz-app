@@ -14,6 +14,12 @@ export interface QuizData {
   questions: Question[];
 }
 
+export interface QuizConfig {
+  username: string;
+  numQuestions: number;
+  categories: string[];
+}
+
 export interface QuizSession {
   username: string;
   answers: { [questionId: number]: string | null };
