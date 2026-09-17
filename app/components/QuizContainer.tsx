@@ -124,6 +124,22 @@ export default function QuizContainer({
       score,
       answers,
     });
+
+    // Lưu kết quả vào database (không chặn hiển thị kết quả nếu lưu thất bại)
+    fetch('/api/submit-result', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        username,
+        totalQuestions: session.selectedQuestions.length,
+        correctAnswers: correctCount,
+        score,
+        categories,
+        answers,
+      }),
+    }).catch((err) => {
+      console.error('Không thể lưu kết quả lên server:', err);
+    });
   };
 
   const answeredCount = Object.values(session.answers).filter((a) => a !== null).length;
