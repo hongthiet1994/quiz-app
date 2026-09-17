@@ -118,13 +118,13 @@ export default function QuizContainer({ username, questions, onBack }: QuizConta
   const answeredCount = Object.values(session.answers).filter((a) => a !== null).length;
 
   return (
-    <div className="min-h-screen bg-gray-100 py-6 px-4">
+    <div className="min-h-screen bg-gray-100 py-4 px-3 sm:py-6 sm:px-4">
       <div className="max-w-2xl mx-auto">
         {/* Header */}
-        <div className="bg-white rounded-lg shadow-sm p-4 mb-6">
-          <div className="flex justify-between items-center mb-3">
-            <h2 className="text-xl font-bold text-gray-800">👤 {username}</h2>
-            <span className="text-sm text-gray-600">
+        <div className="bg-white rounded-lg shadow-sm p-3 sm:p-4 mb-4 sm:mb-6">
+          <div className="flex justify-between items-center mb-3 gap-2">
+            <h2 className="text-base sm:text-xl font-bold text-gray-800 truncate">👤 {username}</h2>
+            <span className="text-xs sm:text-sm text-gray-600 shrink-0">
               Câu {session.currentIndex + 1}/{session.selectedQuestions.length}
             </span>
           </div>
@@ -134,7 +134,7 @@ export default function QuizContainer({ username, questions, onBack }: QuizConta
               style={{ width: `${progress}%` }}
             ></div>
           </div>
-          <div className="mt-2 text-sm text-gray-600">
+          <div className="mt-2 text-xs sm:text-sm text-gray-600">
             Đã trả lời: {answeredCount}/{session.selectedQuestions.length}
           </div>
         </div>
@@ -148,11 +148,11 @@ export default function QuizContainer({ username, questions, onBack }: QuizConta
         />
 
         {/* Navigation and Submit */}
-        <div className="flex gap-3 mt-6">
+        <div className="grid grid-cols-2 gap-2 sm:flex sm:gap-3 mt-4 sm:mt-6">
           <button
             onClick={handlePrev}
             disabled={session.currentIndex === 0}
-            className="flex-1 bg-gray-500 hover:bg-gray-600 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-semibold py-3 rounded-lg transition-colors"
+            className="bg-gray-500 hover:bg-gray-600 active:bg-gray-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white text-sm sm:text-base font-semibold py-3 rounded-lg transition-colors sm:flex-1"
           >
             ← Lùi
           </button>
@@ -160,14 +160,14 @@ export default function QuizContainer({ username, questions, onBack }: QuizConta
           <button
             onClick={handleNext}
             disabled={session.currentIndex === session.selectedQuestions.length - 1}
-            className="flex-1 bg-gray-500 hover:bg-gray-600 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-semibold py-3 rounded-lg transition-colors"
+            className="bg-gray-500 hover:bg-gray-600 active:bg-gray-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white text-sm sm:text-base font-semibold py-3 rounded-lg transition-colors sm:flex-1"
           >
             Tiến →
           </button>
 
           <button
             onClick={handleSubmit}
-            className="flex-1 bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded-lg transition-colors"
+            className="col-span-2 sm:col-span-1 bg-green-600 hover:bg-green-700 active:bg-green-800 text-white text-sm sm:text-base font-semibold py-3 rounded-lg transition-colors sm:flex-1"
           >
             ✓ Nộp Bài
           </button>
