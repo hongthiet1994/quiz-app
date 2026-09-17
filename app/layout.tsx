@@ -26,7 +26,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="min-h-full flex flex-col">
         <div className="flex-1 flex flex-col">{children}</div>
         <footer className="py-3 text-center text-xs text-gray-500 bg-transparent">
-          © TVCP 2026
+          © TVCP 2026 ·{' '}
+          <a href="mailto:hongthiet1994@gmail.com" className="hover:text-gray-700 hover:underline">
+            hongthiet1994@gmail.com
+          </a>
         </footer>
       </body>
     </html>
