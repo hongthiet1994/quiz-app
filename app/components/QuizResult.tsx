@@ -94,16 +94,24 @@ export default function QuizResult({ result, onBack }: QuizResultProps) {
                   </div>
                   <div className="text-xs sm:text-sm space-y-1">
                     <div className="text-gray-700 break-words">
-                      Bạn chọn: <strong>{answer.userAnswer}</strong>
+                      Bạn chọn:{' '}
+                      <strong>
+                        {answer.userAnswerText
+                          ? `${answer.userAnswer}. ${answer.userAnswerText}`
+                          : answer.userAnswer}
+                      </strong>
                     </div>
                     <div
-                      className={
+                      className={`break-words ${
                         answer.isCorrect
                           ? 'text-green-700'
                           : 'text-red-700'
-                      }
+                      }`}
                     >
-                      Đáp án đúng: <strong>{answer.correctAnswer}</strong>
+                      Đáp án đúng:{' '}
+                      <strong>
+                        {answer.correctAnswer}. {answer.correctAnswerText}
+                      </strong>
                     </div>
                     <div className="mt-1">
                       {answer.isCorrect ? '✅ Chính Xác' : '❌ Sai'}

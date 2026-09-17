@@ -35,7 +35,9 @@ export interface QuizResult {
   answers: Array<{
     question: string;
     userAnswer: string | null;
+    userAnswerText: string | null;
     correctAnswer: string;
+    correctAnswerText: string;
     isCorrect: boolean;
   }>;
 }

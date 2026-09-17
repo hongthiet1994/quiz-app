@@ -108,7 +108,9 @@ export default function QuizContainer({
       return {
         question: q.question,
         userAnswer: userAnswer || 'Không chọn',
+        userAnswerText: userAnswer ? q.options[userAnswer] : null,
         correctAnswer: q.correct_answer,
+        correctAnswerText: q.options[q.correct_answer],
         isCorrect,
       };
     });
