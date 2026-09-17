@@ -19,7 +19,15 @@ export default function LoginForm({ questions, onSubmit }: LoginFormProps) {
     return counts;
   }, [questions]);
 
-  const allCategories = useMemo(() => Object.keys(categoryCounts).sort(), [categoryCounts]);
+  const allCategories = useMemo(() => {
+    // Sắp xếp theo số thứ tự ở đầu tên (vd "2. ..." trước "10. ..."),
+    // vì sort chuỗi mặc định sẽ xếp "10." trước "2."
+    const leadingNumber = (name: string) => {
+      const match = name.match(/^(\d+)\./);
+      return match ? parseInt(match[1], 10) : Number.MAX_SAFE_INTEGER;
+    };
+    return Object.keys(categoryCounts).sort((a, b) => leadingNumber(a) - leadingNumber(b));
+  }, [categoryCounts]);
 
   const [username, setUsername] = useState('');
   const [numQuestions, setNumQuestions] = useState(String(DEFAULT_NUM_QUESTIONS));
