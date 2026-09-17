@@ -1,5 +1,6 @@
 export interface Question {
   id: number;
+  original_number: number;
   question: string;
   options: {
     [key: string]: string;
