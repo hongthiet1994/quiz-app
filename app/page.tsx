@@ -5,6 +5,13 @@ import LoginForm from './components/LoginForm';
 import QuizContainer from './components/QuizContainer';
 import { Question, QuizConfig } from './components/types';
 
+const REMOVED_CATEGORY_NUMBERS = new Set(['1', '11', '14']);
+
+const isRemovedCategory = (category: string) => {
+  const match = category.match(/^(\d+)\./);
+  return match ? REMOVED_CATEGORY_NUMBERS.has(match[1]) : false;
+};
+
 export default function Home() {
   const [config, setConfig] = useState<QuizConfig | null>(null);
   const [questions, setQuestions] = useState<Question[]>([]);
@@ -15,7 +22,7 @@ export default function Home() {
     fetch('/questions.json')
       .then((res) => res.json())
       .then((data) => {
-        setQuestions(data.questions);
+        setQuestions(data.questions.filter((question: Question) => !isRemovedCategory(question.category)));
         setLoading(false);
       })
       .catch((err) => {
